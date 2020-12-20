@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Audio Sample Player</title>
+</head>
+
+<body>
+  <select id='sound_menu'>
+    <option value='boom'>boom</option>
+    <option value='clap'>clap</option>
+    <option value='hihat'>hihat</option>
+    <option value='kick'>kick</option>
+    <option value='openhat'>openhat</option>
+    <option value='ride'>ride</option>
+    <option value='snare'>snare</option>
+    <option value='tink'>tink</option>
+    <option value='tom'>tom</option>
+  </select>
+  <button id='start'>Play</button>
+  <script>
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+    const button = document.getElementById('start');
+    button.addEventListener('click', play);
+
+    const menu = document.getElementById('sound_menu');
+    let rawBuffer = null;
+    menu.addEventListener('change', async () => {
+      rawBuffer = await getSound(menu.value);
+    })
+
+    let context = null;
+
+    async function getSound(name) {
+      const res = await fetch(`${name}.wav`);
+      return await res.arrayBuffer();
+    }
+
+    let audioBuffer = null;
+    async function play() {
+      if(!context) {
+        context = new AudioContext();
+      }
+
+      if(rawBuffer !== null) {
+        audioBuffer = await context.decodeAudioData(rawBuffer);
+        rawBuffer = null;
+      }
+
+      const source = context.createBufferSource(); // creates a sound source
+      source.buffer = audioBuffer; // tell the source which sound to play
+      source.connect(context.destination); // connect the source to the context's destination (the speakers)
+      source.start(0);
+    }
+
+    window.addEventListener('load', async () => {
+      const val = menu.value;
+      rawBuffer = await getSound(val);
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "koa-html5-audio-sample-player",
+  "version": "0.1.0",
+  "description": "Use koa to server audio files played by html5 web audio api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ALMaclaine/koa-html5-audio-sample-player.git"
+  },
+  "keywords": [
+    "koa",
+    "web",
+    "audio",
+    "html5",
+    "samples"
+  ],
+  "author": "Alessandro MacLaine",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ALMaclaine/koa-html5-audio-sample-player/issues"
+  },
+  "homepage": "https://github.com/ALMaclaine/koa-html5-audio-sample-player#readme",
+  "dependencies": {
+    "koa": "^2.13.0",
+    "koa-static": "^5.0.0"
+  }
+}
